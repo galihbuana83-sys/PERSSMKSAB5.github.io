@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>for we AKT-5</title>
+
+<style>
+/* ========== GLOBAL ========== */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #052455;
+  color: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* gradient left & right */
+body::before, body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+body::before { left: 0; background: linear-gradient(to right, rgba(0,0,0,0.25), transparent); }
+body::after  { right:0; background: linear-gradient(to left, rgba(255,255,255,0.06), transparent); }
+
+/* giant bg text */
+.bg-text {
+  position: absolute;
+  color: white;
+  font-size: 180px;
+  font-weight: bold;
+  opacity: 0.05;
+  z-index: 0;
+  user-select: none;
+  letter-spacing: 8px;
+}
+#bigLeft { top: 10%; left: 2%; }
+#bigRight { bottom: 8%; right: 2%; }
+
+/* ========== PAGE 1 ========== */
+#page1 {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 20;
+  padding: 24px;
+  text-align: center;
+}
+#page1 h1 { margin: 0; font-size: 34px; letter-spacing: 1px; }
+#targetName {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: none;
+  width: calc(100% - 40px);
+  max-width: 360px;
+}
+#startBtn {
+  padding: 12px 28px;
+  background: #fff;
+  color: #052455;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* ========== TEXT COLUMNS ========== */
+.text-column {
+  position: absolute;
+  width: 32%;
+  color: white;
+  font-size: 18px;
+  line-height: 1.5;
+  white-space: pre-line;
+  z-index: 12;
+}
+#leftText { left: 2%; top: 60%; transform: translateY(-20%); }
+#rightText { right: -10%; top: 5%; }
+
+/* ========== ZIGZAG / POLAROID AREA ========== */
+#zigzag {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  width: 900px;
+  height: 600px;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  z-index: 2;
+}
+.polaroid {
+  width: 150px;
+  height: 190px;
+  padding: 8px;
+  background: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1.2s ease, transform 0.6s ease;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.polaroid.show { opacity: 1; transform: translateY(-6px); }
+.polaroid img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  filter: grayscale(100%);
+  border-radius: 4px;
+}
+
+/* quote */
+#quote {
+  position: absolute;
+  right: 40px;
+  bottom: 35px;
+  color: rgba(255,255,255,0.65);
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  font-style: italic;
+  z-index: 10;
+}
+
+/* small helper */
+.content-wrapper { min-height: 100vh; }
+
+/* ================= RESPONSIVE MOBILE / TABLET ================= */
+@media (max-width: 900px) {
+
+  /* teks tetap rapi di atas */
+  .text-column {
+    position: relative !important;
+    width: 90% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 12px auto !important;
+    font-size: 15px !important;
+  }
+
+  /* zigzag jadi grid 2 kolom */
+  #zigzag {
+    position: relative !important;
+    top: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 92% !important;
+    height: auto !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+    padding: 18px 0 !important;
+    margin-top: 30px;
+  }
+
+  .polaroid {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 8px !important;
+    display: block;
+    transform: none !important;
+  }
+
+  .polaroid img {
+    width: 100% !important;
+    height: 180px !important;
+    object-fit: cover;
+    filter: none; /* full color di HP */
+  }
+
+  /* page1 */
+  #page1 h1 { font-size: 22px; }
+  #startBtn { font-size: 16px; padding: 10px 20px; }
+  #targetName { width: calc(100% - 30px); max-width: 280px; padding: 10px; }
+
+  /* quote */
+  #quote {
+    position: relative !important;
+    right: unset !important;
+    bottom: unset !important;
+    margin: 18px auto;
+    width: 90%;
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.9;
+  }
+}
+
+/* ========== SMALL PHONES ========== */
+@media (max-width: 420px) {
+  .bg-text { font-size: 40px; }
+}
+</style>
+</head>
+<body>
+
+<div id="bigLeft" class="bg-text">AKT-5</div>
+<div id="bigRight" class="bg-text">2024—2025</div>
+
+<div class="content-wrapper">
+
+  <div id="page1">
+    <h1>PERSSMKSAB AKT-5</h1>
+    <input id="targetName" placeholder="contoh: Dea" />
+    <button id="startBtn">Mulai</button>
+  </div>
+
+  <audio id="bgMusic" src="./Nadin Amizah  Sorai Official Music Video.mp3" loop></audio>
+  <audio id="typeSound" src=""></audio>
+
+  <div id="leftText" class="text-column"></div>
+  <div id="rightText" class="text-column"></div>
+
+  <div id="zigzag">
+    <!-- polaroid desktop positions -->
+    <div class="polaroid" style="top:20px; left:60px;"><img src="./WhatsApp Image 2025-12-07 at 19.44.38_ccf13bb3.jpg" alt=""></div>
+    <div class="polaroid" style="top:35px; left:240px;"><img src="./WhatsApp Image 2025-12-07 at 20.23.39_b49174af.jpg" alt=""></div>
+    <div class="polaroid" style="top:15px; left:420px;"><img src="./WhatsApp Image 2025-12-07 at 19.44.38_b332bc28.jpg" alt=""></div>
+    <div class="polaroid" style="top:30px; left:600px;"><img src="./WhatsApp Image 2025-12-07 at 20.23.39_6fc47605.jpg" alt=""></div>
+
+    <div class="polaroid" style="top:170px; left:120px;"><img src="./WhatsApp Image 2025-12-07 at 19.44.38_b2bb63a9.jpg" alt=""></div>
+    <div class="polaroid" style="top:150px; left:310px;"><img src="./WhatsApp Image 2025-12-07 at 20.23.39_27b3593b.jpg" alt=""></div>
+    <div class="polaroid" style="top:180px; left:500px;"><img src="./WhatsApp Image 2025-12-07 at 20.23.40_1b3431d7.jpg" alt=""></div>
+    <div class="polaroid" style="top:160px; left:690px;"><img src="./WhatsApp Image 2025-12-07 at 20.23.40_f07541b1.jpg" alt=""></div>
+
+    <div class="polaroid" style="top:320px; left:50px;"><img src="./WhatsApp Image 2025-12-07 at 20.23.37_46b67a89.jpg" alt=""></div>
+    <div class="polaroid" style="top:300px; left:230px;"><img src="./WhatsApp Image 2025-12-07 at 19.44.37_1e16154f.jpg" alt=""></div>
+    <div class="polaroid" style="top:340px; left:410px;"><img src="./IMG_6412.jpg" alt=""></div>
+    <div class="polaroid" style="top:310px; left:590px;"><img src="./IMG_6413.jpg" alt=""></div>
+    <div class="polaroid" style="top:350px; left:760px;"><img src="./IMG_6481.jpg" alt=""></div>
+
+    <div class="polaroid" style="top:470px; left:120px;"><img src="./IMG_6482.jpg" alt=""></div>
+    <div class="polaroid" style="top:450px; left:300px;"><img src="./IMG_6484.jpg" alt=""></div>
+    <div class="polaroid" style="top:490px; left:480px;"><img src="./IMG_6486.jpg" alt=""></div>
+    <div class="polaroid" style="top:460px; left:660px;"><img src="./IMG_6917.jpg" alt=""></div>
+
+    <div class="polaroid" style="top:600px; left:200px;"><img src="./IMG_6919.jpg" alt=""></div>
+    <div class="polaroid" style="top:580px; left:390px;"><img src="./IMG_6921.jpg" alt=""></div>
+    <div class="polaroid" style="top:620px; left:580px;"><img src="./IMG_6946.jpg" alt=""></div>
+    <div class="polaroid" style="top:600px; left:760px;"><img src="./IMG_6950.jpg" alt=""></div>
+  </div>
+
+  <div id="quote">“Memori ini akan selalu pulang ke kita.”</div>
+
+</div>
+
+<script>
+const teks1 = `Untuk kita, PERSSMKSAB AKT-5.
+Setahun sudah kita lewati bersama—
+yang dulu datang sebagai junior 
+yang belum tau apa-apa tentang
+video, photo, design bahkan editing
+dan juga kita dulu belum tau siapa aja
+temen-temen seangkatan kita dan yaa
+kini kita menjadi senior yang saling menjaga, 
+saling mengerti,`;
+
+const teks2 = `saling mengenal satu sama lain,
+dan yaaa bahkan kita sekarang sudah
+mempunyai junior sampai kita bertumbuh
+dalam cerita yang sama. 
+Terima kasih telah bertahan, 
+meski kadang kita tidak bisa 
+kumpul full mem. tapi Semoga setiap 
+langkah yang kita pilih, selalu
+menjadi alasan untuk tersenyum,
+seperti sorai yang merayakan 
+pulangnya sebuah perjalanan.`;
+
+const startBtn = document.getElementById('startBtn');
+const page1 = document.getElementById('page1');
+const zigzag = document.getElementById('zigzag');
+const photos = document.querySelectorAll('.polaroid');
+const bgMusic = document.getElementById('bgMusic');
+const typeSound = document.getElementById('typeSound');
+const leftTextEl = document.getElementById('leftText');
+const rightTextEl = document.getElementById('rightText');
+
+function safePlayAudio(audioEl) {
+  if (!audioEl) return;
+  const playPromise = audioEl.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(err => console.log('Autoplay prevented:', err && err.message));
+  }
+}
+
+function typeText(target, text, duration, callback) {
+  let i = 0;
+  target.textContent = '';
+  const interval = Math.max(10, Math.floor(duration / Math.max(1, text.length)));
+  function step() {
+    if (i < text.length) {
+      target.textContent += text[i++];
+      if (typeSound && typeSound.src) {
+        try { typeSound.currentTime = 0; typeSound.play(); } catch(e) {}
+      }
+      setTimeout(step, interval);
+    } else { if (callback) callback(); }
+  }
+  step();
+}
+
+function revealPhotos() {
+  const isMobile = window.matchMedia('(max-width: 900px)').matches;
+  if (isMobile) {
+    photos.forEach(p => {
+      p.classList.add('show');
+      p.style.top = '';
+      p.style.left = '';
+    });
+  } else {
+    photos.forEach((p, i) => {
+      setTimeout(() => p.classList.add('show'), i * 2000);
+    });
+  }
+}
+
+startBtn.addEventListener('click', () => {
+  const name = document.getElementById('targetName').value.trim();
+  if (!name) { alert('Isi nama dulu ya 🙂'); return; }
+
+  page1.style.display = 'none';
+  zigzag.style.opacity = '1';
+  bgMusic.volume = 0.45;
+  safePlayAudio(bgMusic);
+  revealPhotos();
+
+  setTimeout(() => {
+    typeText(leftTextEl, teks1, 20000, () => {
+      setTimeout(() => typeText(rightTextEl, teks2, 20000), 600);
+    });
+  }, 600);
+});
+
+document.getElementById('quote').addEventListener('click', () => {
+  if (bgMusic.paused) safePlayAudio(bgMusic); else bgMusic.pause();
+});
+</script>
+
+</body>
+</html>
